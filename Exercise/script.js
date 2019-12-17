@@ -55,4 +55,10 @@
 
     }]);
 
+    app.directive('todoTitle', function () {
+       return {
+           template: '<h1> ToDo 목록 </h1>'
+       }
+    });
+
 })();
