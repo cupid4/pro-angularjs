@@ -10,12 +10,16 @@
         var myApp = angular.module("demo", []);
 
         myApp.controller("demoCtrl", function ($scope, $http) {
-            $http.get("todo.json").then(function (response) {
-                $scope.todos = response.data;
-            }, function () {
-                $scope.todos = [{action: "Error"}];
-            }).then(function () {
-                $scope.todos.push({action: "Request Complete"});
+            $http.get("todo.json")
+                .then( // 응답이 있다면
+                    function (response) { // response data 가 있다면
+                                    $scope.todos = response.data;
+                    },
+                    function () { // response data 가 없다면
+                                        $scope.todos = [{action: "Error"}];
+                    })
+                .then(function () { // 응답이 없다면
+                    $scope.todos.push({action: "Request Complete"});
             });
         });
 

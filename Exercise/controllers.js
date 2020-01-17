@@ -1,4 +1,7 @@
-angular.module('todo').controller('TodoCtrl', ['$scope', function ($scope) {
+angular.module('todo').controller('TodoCtrl', ['$scope', 'todoStorage', function ($scope, todoStorage) {
+
+    $scope.todos = todoStorage.get();
+
     $scope.todo = {
         title: '요가수련',
         completed: false,
@@ -6,48 +9,16 @@ angular.module('todo').controller('TodoCtrl', ['$scope', function ($scope) {
     }
 
 
-    $scope.todos = [
-        {
-            title: '요가수련',
-            completed: false,
-            createdAt: Date.now()
-        },
-        {
-            title: '앵귤러 학습',
-            completed: true,
-            createdAt: Date.now()
-        },
-        {
-            title: 'HTML 학습',
-            completed: false,
-            createdAt: Date.now()
-        }
-    ]
-
     $scope.removeMyItem = function (todoItem, index) {
-        // var idx = $scope.todos.findIndex(function (item) {
-        //     return item.id === todoItem.id;
-        // })
-        // if(idx > -1) {
-        //     $scope.todos.splice(idx, 1);
-        // }
-
-        $scope.todos.splice(index,  1);
+        todoStorage.remove(index);
     }
 
-    // $scope.newTodoTitle = function () {
-    //
-    // }
-
     $scope.add = function (newTodoTitle) {
-        var newTodo = {
-            title: newTodoTitle,
-            completed: false,
-            createdAt: Date.now()
-        }
-        $scope.todos.push(newTodo);
+        todoStorage.add(newTodoTitle);
+    }
 
-        $scope.newTodoTitle = "";
+    $scope.update = function () {
+        todoStorage.update();
     }
 
 }]);
